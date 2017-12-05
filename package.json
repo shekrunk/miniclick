@@ -1,0 +1,27 @@
+{
+  "name": "db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./app.js SampleData.xlsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shekrunk/miniclick.git"
+  },
+  "author": "SivaSS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shekrunk/miniclick/issues"
+  },
+  "homepage": "https://github.com/shekrunk/miniclick#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "lodash": "^4.17.4",
+    "nodemon": "^1.12.4",
+    "underscore": "^1.8.3",
+    "xlsx": "^0.11.12"
+  }
+}
