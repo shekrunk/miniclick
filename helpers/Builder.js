@@ -1,14 +1,56 @@
-var Game = require('../bean/Game');
-var Player = require('../bean/Player');
-var GamePlay = require('../bean/GamePlay');
-var Scoring = require('../bean/Scoring');
+var Game = require('../bean/Game').Game;
+var Player = require('../bean/Player').Player;
+var GamePlay = require('../bean/GamePlay').GamePlay;
+var Scoring = require('../bean/Scoring').Scoring;
+
+var _ = require('lodash');
 
 //const moment = require('moment');
 class Builder{
-    static build(item){
+    static build(item, collection){
+        var gameName = item.game;
+        var existingGame = collection[gameName];
+        if(!existingGame) {
+            collection[gameName] = Builder.buildNewGame(item);
+        } else {
+            Builder.updateExistingGame(item, existingGame, collection);            
+        }
+        return collection;
+    }
+
+    static updateExistingGame(item, existingGame, collection) {
+        var score = Builder.buildScore(item);
+        var allPlayersInGame = existingGame.getAllPlayers();
+        
+        var existingPlayerIndex = _.findIndex(allPlayersInGame, function(o) {
+            return o.id === item.id; 
+        });
+
+        if(existingPlayerIndex != -1) {
+            var allGamePlayOfPlayer = existingPlayerIndex.getGamePlays();
+            var difficultLevel = item['difficult level'];
+
+            var existingDifficultyIndex = _.findIndex(allGamePlayOfPlayer, function(o) { 
+                return o.difficulty === difficultLevel; 
+            });
+
+            if(existingDifficultyIndex != -1) {                    
+                allGamePlayOfPlayer[existingDifficultyIndex].addScoring(score);
+            } else{                    
+                var gamePlay = Builder.buildGamePlay(item['difficult level'], score);
+                allPlayersInGame[existingPlayerIndex].addGamePlay(gamePlay);
+            }
+        } else {
+            var gamePlay = Builder.buildGamePlay(item['difficult level'], score);
+            var player = Builder.buildPlayerInfo(item.id, item.username, gamePlay);
+            collection[item.game].addPlayer(player);
+        }
+    }
+
+    static buildNewGame(item) {
         var score = Builder.buildScore(item);
         var gamePlay = Builder.buildGamePlay(item['difficult level'], score);
-        var player = Builder.buildPlayerInfo(item.id, item.userName, gamePlay);
+        var player = Builder.buildPlayerInfo(item.id, item.username, gamePlay);
         var game = Builder.buildGameDetails(item.game, player);
         return game;
     }
@@ -33,6 +75,7 @@ class Builder{
     static buildGameDetails(gameTitle, playerInfo) {
         var game = new Game(gameTitle);
         game.addPlayer(playerInfo);
+        return game;
     }
 }
 

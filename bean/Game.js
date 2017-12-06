@@ -4,12 +4,16 @@ class Game{
         this.players = [];
     }
 
-    get name() {
+    getName() {
         return this.name;
     }
 
     addPlayer(player) {
        return this.players.push(player);
+    }
+
+    getAllPlayers() {
+        return this.players;
     }
 
 }

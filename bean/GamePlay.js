@@ -4,10 +4,10 @@ class GamePlay{
         this.scorings=[];
     }
 
-    get difficulty() {
+    getDifficulty() {
         return this.difficulty;
     }
-    get scorings() {
+    getScorings() {
         return this.scorings;
     }
 

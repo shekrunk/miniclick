@@ -5,17 +5,17 @@ class Scoring{
         this.endTime = endTime;
     }
 
-    get score() {
+    getScore() {
         return this.score;
     }
-    get startTime() {
+    getStartTime() {
         return this.startTime;
     }
-    get endTime() {
+    getEndTime() {
         return this.endTime;
     }
 
-    get scores() {
+    getScores() {
         return {
             score: this.score,
             startTime: this.startTime,

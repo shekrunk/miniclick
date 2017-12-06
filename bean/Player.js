@@ -4,16 +4,16 @@ class Player {
         this.name = name;
         this.gamePlays = [];
     }
-    get GamePlays(){
+    getGamePlays(){
         return this.gamePlays;
     }
-    set GamePlays(gamePlays) {
+    setGamePlays(gamePlays) {
         this.gamePlays = gamePlays;
     }
-    get id(){
+    getId(){
        return this.id;
     }
-    get name(){
+    getPlayerName(){
         return this.name;
     }
 
