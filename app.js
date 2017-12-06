@@ -27,5 +27,12 @@ _.forEach(testData, function(value, key){
     gameData =  GameBuilder.build(value, gameData);
 });
 
+fs.writeFile("./output/sampleData.json", JSON.stringify(gameData, null, 4), 'utf8', function (err) {
+    if (err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!Goto '"+__dirname+"/output/' to view the output");
+}); 
+
 //TODO connect to MongoDB && load data;
 //Express API for fetching from MongoDB - different project

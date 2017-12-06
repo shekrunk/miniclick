@@ -6,8 +6,8 @@ var Scoring = require('../bean/Scoring').Scoring;
 var _ = require('lodash');
 
 const moment = require('moment');
-const dataDateFormat = "DD/MM/YYYY hh::mm::ss a A";
-const customDateFormat = "DD/MM/YYYY hh:mm:ss a A";
+const dataDateFormat = "DD/MM/YYYY hh::mm::ss A";
+const customDateFormat = "DD/MM/YYYY hh:mm:ss A";
 class Builder{
     static build(item, collection){
         var gameName = item.game;
