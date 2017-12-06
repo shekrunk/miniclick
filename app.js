@@ -5,21 +5,27 @@ var _ = require('lodash');
 const GameBuilder = require('./helpers/Builder');
 
 const testDataFile = process.argv[2];
+if(!testDataFile) {
+    console.log("Invalid Params.Usage:: node app.js {fileName} \n e.g. node app.js SampleData.xlsx")
+    return;
+}
 
 var workbook = XLSX.readFile('./'+testDataFile);
 
+if(!workbook) {
+    console.log("Unparseable data file!!!");
+    return;
+}
 
 var sheet1 = workbook.SheetNames[0];
 var workSheet = workbook.Sheets[sheet1];
 var testData = XLSX.utils.sheet_to_json(workSheet);
-console.log(testData.length);
+
 var gameData = {};
 
 _.forEach(testData, function(value, key){
-    //console.log(value);
     gameData =  GameBuilder.build(value, gameData);
 });
-//console.log(Object.keys(gameData));
 
-var json = JSON.stringify(gameData);
-fs.writeFile('myjsonfile.json', json, 'utf8');
+//TODO connect to MongoDB && load data;
+//Express API for fetching from MongoDB - different project

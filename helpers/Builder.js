@@ -5,7 +5,9 @@ var Scoring = require('../bean/Scoring').Scoring;
 
 var _ = require('lodash');
 
-//const moment = require('moment');
+const moment = require('moment');
+const dataDateFormat = "DD/MM/YYYY hh::mm::ss a A";
+const customDateFormat = "DD/MM/YYYY hh:mm:ss a A";
 class Builder{
     static build(item, collection){
         var gameName = item.game;
@@ -56,8 +58,13 @@ class Builder{
     }
 
     static buildScore(item) {
-        var score = new Scoring(item['score'], item['start time'], item['end time']);
+        var score = new Scoring(item['score'], Builder.parseDate(item['start time']), Builder.parseDate(item['end time']));
         return score;
+    }
+
+    static parseDate(string){
+        var parsedDate = moment(string, dataDateFormat);
+        return moment(parsedDate).format(customDateFormat);
     }
 
     static buildGamePlay(difficulty, score) {
